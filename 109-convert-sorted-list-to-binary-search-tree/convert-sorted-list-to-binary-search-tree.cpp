@@ -16,43 +16,38 @@
  *     TreeNode *right;
  *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
  *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left),
+ * right(right) {}
  * };
  */
 class Solution {
 public:
-   int getLen(ListNode* head){
-    ListNode* temp=head;
-    int count=0;
-
-    while(temp){
-        temp=temp->next;
-        count++;
-    }
-
-    return count;
-}
-    TreeNode* solve(ListNode* &head,int n){
-        if(head==NULL)
-        return NULL;
-
+    TreeNode* buildBST(ListNode*& head, int n) {
+        if (head == NULL)
+            return NULL;
         if(n<=0)
-        return NULL;
+            return NULL;
+        TreeNode* leftSubTree = buildBST(head, n / 2);
 
-        TreeNode* leftSubtree = solve(head,n/2);
-        int element = head->val;
-        TreeNode* root = new TreeNode(element);
-        root->left = leftSubtree;
-        head=head->next;
+        TreeNode* root = new TreeNode(head->val);
+        root->left = leftSubTree;
+        head = head->next;
+        TreeNode* rightSubTree = buildBST(head, n - n / 2 - 1);
+        root->right = rightSubTree;
 
-        TreeNode* rightSubtree=solve(head,n-n/2-1);
-        root->right = rightSubtree;
         return root;
+    }
+    int getLen(ListNode* head) {
+        ListNode* temp = head;
+        int len = 0;
+        while (temp != NULL) {
+            temp = temp->next;
+            len++;
+        }
+        return len;
     }
     TreeNode* sortedListToBST(ListNode* head) {
         int n = getLen(head);
-        TreeNode* root = solve(head,n);
-        return root;
-
+        return buildBST(head, n);
     }
 };
