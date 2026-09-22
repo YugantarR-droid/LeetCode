@@ -15,10 +15,11 @@ public:
         if(root==NULL)
         return 0;
 
-        int leftAns = maxDepth(root->left) + 1;
-        int rightAns = maxDepth(root->right) + 1;
+        int leftAns = maxDepth(root->left)+1;
+        int rightAns = maxDepth(root->right)+1;
 
         return max(leftAns,rightAns);
-        
+
+
     }
 };
