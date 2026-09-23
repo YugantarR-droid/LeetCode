@@ -15,13 +15,11 @@ public:
         if(root==NULL)
         return false;
 
-        //jb last node pe pahuchenge tb target ki value aur node ki value same ho jaigi 
-        //yaha galti hogi
         if(root->left==NULL && root->right==NULL && targetSum==root->val)
         return true;
 
-        bool leftAns=hasPathSum(root->left,targetSum-root->val);
-        bool rightAns=hasPathSum(root->right,targetSum-root->val);
+        bool leftAns = hasPathSum(root->left,targetSum-root->val);
+        bool rightAns = hasPathSum(root->right,targetSum-root->val);
 
         return leftAns || rightAns;
     }
