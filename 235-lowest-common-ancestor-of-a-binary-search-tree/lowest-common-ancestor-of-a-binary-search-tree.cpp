@@ -20,14 +20,18 @@ public:
         if(root==q)
         return q;
 
-        if(root->val>p->val && root->val>q->val){
-            return lowestCommonAncestor(root->left,p,q);
-        }
-
-        else if(root->val<p->val && root->val<q->val){
+        
+        if(p->val>root->val && q->val>root->val){
+            //right search;
             return lowestCommonAncestor(root->right,p,q);
         }
 
-        return root;
+        else if(p->val<root->val && q->val<root->val){
+            //leftsearch;
+            return lowestCommonAncestor(root->left,p,q);
+        }
+        else{
+            return root;
+        }
     }
 };
