@@ -11,32 +11,33 @@
  */
 class Solution {
 public:
-    int countpath(TreeNode* root, long long targetSum) {
+    void solve(TreeNode* root, int targetSum, long long &sum, int &count) {
+        if(root == NULL)
+            return;
+
+        sum += root->val;
+
+        if(sum == targetSum)
+            count++;
+
+        solve(root->left, targetSum, sum, count);
+        solve(root->right, targetSum, sum, count);
+
+        sum -= root->val;
+    }
+
+    int pathSum(TreeNode* root, int targetSum) {
         if(root == NULL)
             return 0;
 
         int count = 0;
+        long long sum = 0;
 
-        if(root->val == targetSum)
-            count++;
+        solve(root, targetSum, sum, count);
 
-        count += countpath(root->left, targetSum - root->val);
-        count += countpath(root->right, targetSum - root->val);
+        count += pathSum(root->left, targetSum);
+        count += pathSum(root->right, targetSum);
 
         return count;
-    }
- 
-    int pathSum(TreeNode* root, int targetSum) {
-        if(root==NULL)
-        return 0;
-        //include starting node
-        int startingNode=countpath(root,targetSum);
-        //left tree
-        int leftAns=pathSum(root->left,targetSum);
-        //right tree
-        int rightAns=pathSum(root->right,targetSum);
-
-        return startingNode+leftAns+rightAns;
-        
     }
 };
