@@ -14,18 +14,17 @@ public:
     int maxDepth(TreeNode* root) {
         if(root==NULL)
         return 0;
-    
 
-    int leftAns = maxDepth(root->left)+1;
-    int rightAns = maxDepth(root->right)+1;
+        int leftHeight = maxDepth(root->left)+1;
+        int rightHeight = maxDepth(root->right)+1;
 
-    return max(leftAns,rightAns);
+        return max(leftHeight,rightHeight);
     }
     int diameterOfBinaryTree(TreeNode* root) {
         if(root==NULL)
         return 0;
 
-        int opt1 = maxDepth(root->left) + maxDepth(root->right);
+        int opt1 = maxDepth(root->left)+maxDepth(root->right);
         int opt2 = diameterOfBinaryTree(root->left);
         int opt3 = diameterOfBinaryTree(root->right);
 
