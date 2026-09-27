@@ -11,31 +11,30 @@
  */
 class Solution {
 public:
-     int maxDepth(TreeNode* root) {
+    int maxDepth(TreeNode* root) {
         if(root==NULL)
         return 0;
+    
 
-        int leftAns = maxDepth(root->left) + 1;
-        int rightAns = maxDepth(root->right) + 1;
+    int leftAns = maxDepth(root->left)+1;
+    int rightAns = maxDepth(root->right)+1;
 
-        return max(leftAns,rightAns);
-        
-    }
+    return max(leftAns,rightAns);
+}
     bool isBalanced(TreeNode* root) {
-        if(root==NULL)
+        if(root == NULL)
         return true;
 
-        //calculate height of one left and right tree node
-        int leftHeight=maxDepth(root->left);
-        int rightHeight=maxDepth(root->right);
-        //check differcence 
-        int absDiff = abs(leftHeight-rightHeight);
-        //if greater return false
-        if(absDiff>1){
+        int leftHeight = maxDepth(root->left);
+        int rightHeight = maxDepth(root->right);
+
+        if(abs(leftHeight-rightHeight)>1){
             return false;
         }else{
-        //recursion sambhal lega
-            return isBalanced(root->left) && isBalanced(root->right);
+            bool leftAns = isBalanced(root->left);
+            bool rightAns = isBalanced(root->right);
+
+            return leftAns && rightAns;
         }
     }
 };
